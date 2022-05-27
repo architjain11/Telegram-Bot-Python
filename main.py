@@ -8,15 +8,12 @@ bot = telebot.TeleBot(API_KEY)
 
 @bot.message_handler(commands=['start', 'help'])
 def send_welcome(message):
-	bot.reply_to(message, "Hey! This bot is built by Archit :D")\
-
-# @bot.message_handler(commands=['hola'])
-# def hola(message):
-#     bot.send_message(message.chat.id, 'holaaaaaaaa')
+	bot.send_message(message.chat.id, "Hey! This bot is built by Archit :D\nType 'price' followed by the ticker to get the current price.\nEg. price tsla (returns current stock price of Tesla Inc.)")
 
 def stock_request(message):
     request = message.text.split()
     if len(request) < 2 or request[0].lower() not in "price":
+        bot.send_message(message.chat.id, "Invalid Input. Try using:\nprice <ticker>")
         return False
     else:
         return True
@@ -26,17 +23,11 @@ def send_price(message):
     request = message.text.split()[1]
     data = yf.download(tickers=request, period='5m', interval='1m')
     if data.size>0:
-        bot.send_message(message.chat.id, 'UTC time is mentioned')
-        # data=data.reset_index()
-        # data['format_date'] = data['Datetime'].dt.strftime('%m/%d %I:%M %p')
-        # data.set_index('format_date', inplace=True)
-        # print(data.to_string())
-        # bot.send_message(message.chat.id, data['close'].to_string(header=False))
-        bot.send_message(message.chat.id, data)
-
+        price = data['Close'].iloc[-1]
+        msg = 'Current stock price for ' + request + ' is: ' + str(round(price,2))
+        bot.send_message(message.chat.id, msg)
     else:
         bot.send_message(message.chat.id, 'No data available :(')
 
-
 print('running')
-bot.polling()  # keeps checking for response
+bot.polling()
