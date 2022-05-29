@@ -1,4 +1,3 @@
-import os
 import telebot
 from decouple import config
 import yfinance as yf
@@ -24,7 +23,7 @@ def send_price(message):
     data = yf.download(tickers=request, period='5m', interval='1m')
     if data.size>0:
         price = data['Close'].iloc[-1]
-        msg = 'Current stock price for ' + request + ' is: ' + str(round(price,2))
+        msg = 'Current stock price for ' + request + ' is: ' + str(round(price,2)) + 'USD.'
         bot.send_message(message.chat.id, msg)
     else:
         bot.send_message(message.chat.id, 'No data available :(')
