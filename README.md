@@ -4,30 +4,31 @@ A telegram bot coded in Python which fetches the current stock price of the tick
 
 ## Setup
 
-The following commands can be run to install the necessary packages to run the Python script.
+The following commands can be run to install the necessary packages to run the Python script:
 
+Telegram Bot API
 ```bash
 pip install pyTelegramBotAPI
 ```
-Telegram Bot API
 
+Used to configure API_KEY from .env file for the Bot API to use as credentials.
 ```bash
 pip install python-decouple
 ```
-Used to configure API_KEY from .env file for the Bot API to use as credentials.
 
+Used to access market data.
 ```bash
 pip install yfinance
 ```
-Used to access market data.
 
 ## Usage
 
-The file "main.py" has the Python code and can be executed using below command.
+The file "main.py" has the Python code and can be executed using below command in the terminal.
 
 ```bash
 python main.py
 ```
+Once the program is running, Telegram Bot is functional.
 
 ## Demonstration
 
